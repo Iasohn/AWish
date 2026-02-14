@@ -75,10 +75,7 @@ const animationTimeline = () => {
       scale: 0.2,
       opacity: 0,
     })
-    .from(".fake-btn", 0.3, {
-      scale: 0.2,
-      opacity: 0,
-    })
+    
     .staggerTo(
       ".hbd-chatbox span",
       0.5,
@@ -87,9 +84,7 @@ const animationTimeline = () => {
       },
       0.05
     )
-    .to(".fake-btn", 0.1, {
-      backgroundColor: "rgb(127, 206, 248)",
-    })
+    
     .to(
       ".four",
       0.5,
@@ -263,6 +258,29 @@ const animationTimeline = () => {
         rotation: 90,
       },
       "+=1"
+    );
+
+  // Animate the floating button last with a gentle entrance
+  tl.to({}, 0.2, {}) // tiny spacer
+    .from(
+      ".fake-btn",
+      0.6,
+      {
+        opacity: 0,
+        y: 18,
+        scale: 0.98,
+        ease: Power2.easeOut,
+      },
+      "+=0"
+    )
+    .to(
+      ".fake-btn",
+      0.45,
+      {
+        boxShadow: "0 14px 40px rgba(0,0,0,0.28)",
+        ease: Power2.easeOut,
+      },
+      "-=0.2"
     );
 
   // tl.seek("currentStep");
