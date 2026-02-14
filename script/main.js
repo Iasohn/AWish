@@ -163,19 +163,38 @@ const animationTimeline = () => {
       0.2,
       "+=1"
     )
-    .staggerFromTo(
-      ".baloons img",
-      2.5,
-      {
-        opacity: 0.9,
-        y: 1400,
-      },
-      {
-        opacity: 1,
-        y: -1000,
-      },
-      0.2
-    )
+    // Spread balloons across the whole screen with natural, randomized motion
+    (() => {
+      const baloons = document.querySelectorAll(".baloons img");
+      baloons.forEach((img, i) => {
+        const startLeft = Math.random() * 100; // percent across viewport
+        const startScale = 0.7 + Math.random() * 0.6;
+        img.style.position = "absolute";
+        img.style.left = startLeft + "%";
+        img.style.transform = `translateX(-50%) scale(${startScale})`;
+        img.style.opacity = 0.95;
+
+        const duration = 6 + Math.random() * 6; // 6-12s travel
+        const delay = i * 0.12 + Math.random() * 0.6; // staggered start
+        const drift = Math.random() * 240 - 120; // horizontal drift in px
+        const rotate = Math.random() * 80 - 40;
+
+        tl.to(
+          img,
+          duration,
+          {
+            opacity: 1,
+            y: -(window.innerHeight + 600),
+            x: "+=" + drift,
+            rotation: rotate,
+            scale: startScale + 0.15,
+            ease: Power1.easeInOut,
+            delay: delay,
+          },
+          "-=0"
+        );
+      });
+    })()
     .from(
       ".girl-dp",
       0.5,
