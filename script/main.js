@@ -163,39 +163,48 @@ const animationTimeline = () => {
       0.2,
       "+=1"
     )
-    // Spread balloons across the whole screen with natural, randomized motion
-    (() => {
-      const baloons = document.querySelectorAll(".baloons img");
-      baloons.forEach((img, i) => {
-        const startLeft = Math.random() * 100; // percent across viewport
-        const startScale = 0.7 + Math.random() * 0.6;
-        img.style.position = "absolute";
-        img.style.left = startLeft + "%";
-        img.style.transform = `translateX(-50%) scale(${startScale})`;
-        img.style.opacity = 0.95;
 
-        const duration = 6 + Math.random() * 6; // 6-12s travel
-        const delay = i * 0.12 + Math.random() * 0.6; // staggered start
-        const drift = Math.random() * 240 - 120; // horizontal drift in px
-        const rotate = Math.random() * 80 - 40;
-
-        tl.to(
-          img,
-          duration,
-          {
-            opacity: 1,
-            y: -(window.innerHeight + 600),
-            x: "+=" + drift,
-            rotation: rotate,
-            scale: startScale + 0.15,
-            ease: Power1.easeInOut,
-            delay: delay,
-          },
-          "-=0"
-        );
-      });
-    })()
+    // --- ПОСЛЕ ВСЕХ ТЕКСТОВЫХ БЛОКОВ ---
     .from(
+      ".girl-dp",
+      0.7,
+      {
+        scale: 3.5,
+        opacity: 0,
+        x: 25,
+        y: -25,
+        rotationZ: -45,
+      },
+      "+=0.2"
+    )
+    .from(
+      ".wish",
+      0.7,
+      {
+        opacity: 0,
+        y: 30,
+      },
+      "-=0.3"
+    )
+    // --- ТОЛЬКО ПОСЛЕ ПОЗДРАВЛЕНИЯ ---
+    .add(function() {
+      const baloons = document.querySelectorAll(".baloons img");
+      const count = baloons.length;
+      baloons.forEach((img, i) => {
+        img.style.position = "absolute";
+        img.style.left = ((i + 0.5) * 100 / count) + "%";
+        img.style.transform = "translateX(-50%) scale(0.95)";
+        img.style.opacity = 0.92;
+        img.style.filter = "drop-shadow(0 6px 15px rgba(0,0,0,0.13))";
+      });
+      TweenMax.staggerFromTo(
+        baloons,
+        3.8,
+        { y: 600, opacity: 0.7 },
+        { y: -window.innerHeight - 120, opacity: 1, ease: Power1.easeInOut },
+        0.18
+      );
+    }, "+=0.2")
       ".girl-dp",
       0.5,
       {
