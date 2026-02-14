@@ -230,10 +230,11 @@ body {
 
 .baloons img {
   position: absolute;
-  width: clamp(40px, 8vw, 60px);
-  opacity: 0.85;
-  filter: drop-shadow(0 6px 15px rgba(0, 0, 0, 0.25));
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  width: clamp(16px, 2.5vw, 28px);
+  opacity: 0.88;
+  filter: drop-shadow(0 2px 6px rgba(255, 71, 87, 0.10));
+  border-radius: 6px;
+  transition: transform 0.28s cubic-bezier(0.4,0,0.2,1), opacity 0.22s, filter 0.22s;
 }
 
 .baloons img:hover {
@@ -241,6 +242,7 @@ body {
   filter: drop-shadow(0 10px 25px rgba(255, 71, 87, 0.35));
   transform: scale(1.15) translateY(-10px);
 }
+
 
 /* circles animation */
 
