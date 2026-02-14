@@ -1,16 +1,16 @@
 // Animation Timeline
 const animationTimeline = () => {
-  // Spit chars that needs to be animated individually
+
   const textBoxChars = document.getElementsByClassName("hbd-chatbox")[0];
   const hbd = document.getElementsByClassName("wish-hbd")[0];
 
   textBoxChars.innerHTML = `<span>${textBoxChars.innerHTML
     .split("")
-    .join("</span><span>")}</span`;
+    .join("</span><span>")}</span>`;
 
   hbd.innerHTML = `<span>${hbd.innerHTML
     .split("")
-    .join("</span><span>")}</span`;
+    .join("</span><span>")}</span>`;
 
   const ideaTextTrans = {
     opacity: 0,
@@ -28,77 +28,28 @@ const animationTimeline = () => {
 
   const tl = new TimelineMax();
 
-  tl.to(".container", 0.1, {
-    visibility: "visible",
-  })
-    .from(".one", 0.7, {
-      opacity: 0,
-      y: 10,
-    })
-    .from(".two", 0.4, {
-      opacity: 0,
-      y: 10,
-    })
-    .to(
-      ".one",
-      0.7,
-      {
-        opacity: 0,
-        y: 10,
-      },
-      "+=2.5"
-    )
-    .to(
-      ".two",
-      0.7,
-      {
-        opacity: 0,
-        y: 10,
-      },
-      "-=1"
-    )
-    .from(".three", 0.7, {
-      opacity: 0,
-      y: 10,
-      // scale: 0.7
-    })
-    .to(
-      ".three",
-      0.7,
-      {
-        opacity: 0,
-        y: 10,
-      },
-      "+=2"
-    )
-    .from(".four", 0.7, {
-      scale: 0.2,
-      opacity: 0,
-    })
-    
-    .staggerTo(
-      ".hbd-chatbox span",
-      0.5,
-      {
-        visibility: "visible",
-      },
-      0.05
-    )
-    
-    .to(
-      ".four",
-      0.5,
-      {
-        scale: 0.2,
-        opacity: 0,
-        y: -150,
-      },
-      "+=0.7"
-    )
+  tl.to(".container", 0.1, { visibility: "visible" })
+    .from(".one", 0.7, { opacity: 0, y: 15, ease: Power2.easeOut }, 0)
+    .from(".two", 0.5, { opacity: 0, y: 12, ease: Power2.easeOut }, "-=0.3")
+
+    .to(".one", 0.6, { opacity: 0, y: 15, ease: Power2.easeIn }, "+=2.3")
+    .to(".two", 0.6, { opacity: 0, y: 12, ease: Power2.easeIn }, "-=0.8")
+
+    .from(".three", 0.7, { opacity: 0, y: 15, ease: Power2.easeOut })
+    .to(".three", 0.6, { opacity: 0, y: 15, ease: Power2.easeIn }, "+=1.8")
+
+    .from(".four", 0.7, { scale: 0.2, opacity: 0, ease: Back.easeOut })
+
+    .staggerTo(".hbd-chatbox span", 0.4, { visibility: "visible", ease: Power2.easeOut }, 0.04)
+
+    .to(".four", 0.5, { scale: 0.2, opacity: 0, y: -120, ease: Power2.easeIn }, "+=0.5")
+
     .from(".idea-1", 0.7, ideaTextTrans)
     .to(".idea-1", 0.7, ideaTextTransLeave, "+=1.5")
+
     .from(".idea-2", 0.7, ideaTextTrans)
     .to(".idea-2", 0.7, ideaTextTransLeave, "+=1.5")
+
     .from(".idea-3", 0.7, ideaTextTrans)
     .to(".idea-3 strong", 0.5, {
       scale: 1.2,
@@ -107,245 +58,82 @@ const animationTimeline = () => {
       color: "#fff",
     })
     .to(".idea-3", 0.7, ideaTextTransLeave, "+=1.5")
+
     .from(".idea-4", 0.7, ideaTextTrans)
     .to(".idea-4", 0.7, ideaTextTransLeave, "+=1.5")
-    .from(
-      ".idea-5",
-      0.7,
-      {
-        rotationX: 15,
-        rotationZ: -10,
-        skewY: "-5deg",
-        y: 50,
-        z: 10,
-        opacity: 0,
-      },
-      "+=0.5"
-    )
-    .to(
-      ".idea-5 span",
-      0.7,
-      {
-        rotation: 90,
-        x: 8,
-      },
-      "+=0.4"
-    )
-    .to(
-      ".idea-5",
-      0.7,
-      {
-        scale: 0.2,
-        opacity: 0,
-      },
-      "+=2"
-    )
-    .staggerFrom(
-      ".idea-6 span",
-      0.8,
-      {
-        scale: 3,
-        opacity: 0,
-        rotation: 15,
-        ease: Expo.easeOut,
-      },
-      0.2
-    )
-    .staggerTo(
-      ".idea-6 span",
-      0.8,
-      {
-        scale: 3,
-        opacity: 0,
-        rotation: -15,
-        ease: Expo.easeOut,
-      },
-      0.2,
-      "+=1"
-    )
 
-    // --- ПОСЛЕ ВСЕХ ТЕКСТОВЫХ БЛОКОВ ---
-    .from(
-      ".girl-dp",
-      0.7,
-      {
-        scale: 3.5,
-        opacity: 0,
-        x: 25,
-        y: -25,
-        rotationZ: -45,
-      },
-      "+=0.2"
-    )
-    .from(
-      ".wish",
-      0.7,
-      {
-        opacity: 0,
-        y: 30,
-      },
-      "-=0.3"
-    )
-    // --- ТОЛЬКО ПОСЛЕ ПОЗДРАВЛЕНИЯ ---
-    .add(function() {
+    .from(".idea-5", 0.7, {
+      rotationX: 15,
+      rotationZ: -10,
+      skewY: "-5deg",
+      y: 50,
+      opacity: 0,
+    })
+    .to(".idea-5 span", 0.7, { rotation: 90, x: 8 }, "+=0.4")
+    .to(".idea-5", 0.7, { scale: 0.2, opacity: 0 }, "+=2")
+
+    .staggerFrom(".idea-6 span", 0.8, {
+      scale: 3,
+      opacity: 0,
+      rotation: 15,
+      ease: Expo.easeOut,
+    }, 0.2)
+
+    .staggerTo(".idea-6 span", 0.8, {
+      scale: 3,
+      opacity: 0,
+      rotation: -15,
+      ease: Expo.easeOut,
+    }, 0.2, "+=1")
+
+    // фото
+    .from(".girl-dp", 0.7, {
+      scale: 3.5,
+      opacity: 0,
+      x: 25,
+      y: -25,
+      rotationZ: -45,
+    })
+
+    .from(".wish", 0.7, { opacity: 0, y: 30 }, "-=0.3")
+
+    // шары
+    .add(function () {
       const baloons = document.querySelectorAll(".baloons img");
-      const count = baloons.length;
-      baloons.forEach((img, i) => {
-        img.style.position = "absolute";
-        img.style.left = ((i + 0.5) * 100 / count) + "%";
-        img.style.transform = "translateX(-50%) scale(0.95)";
-        img.style.opacity = 0.92;
-        img.style.filter = "drop-shadow(0 6px 15px rgba(0,0,0,0.13))";
-      });
       TweenMax.staggerFromTo(
         baloons,
-        3.8,
-        { y: 600, opacity: 0.7 },
-        { y: -window.innerHeight - 120, opacity: 1, ease: Power1.easeInOut },
-        0.18
+        4.2,
+        { y: 700, opacity: 0.6 },
+        { 
+          y: -window.innerHeight - 120, 
+          opacity: 1, 
+          ease: Power1.easeInOut,
+          rotation: Math.random() * 20 - 10
+        },
+        0.15
       );
-    }, "+=0.2")
-      ".girl-dp",
-      0.5,
-      {
-        scale: 3.5,
-        opacity: 0,
-        x: 25,
-        y: -25,
-        rotationZ: -45,
-      },
-      "-=2"
-    )
-    .from(".hat", 0.5, {
-      x: -100,
-      y: 350,
-      rotation: -180,
-      opacity: 0,
     })
-    .staggerFrom(
-      ".wish-hbd span",
-      0.7,
-      {
-        opacity: 0,
-        y: -50,
-        // scale: 0.3,
-        rotation: 150,
-        skewX: "30deg",
-        ease: Elastic.easeOut.config(1, 0.5),
-      },
-      0.1
-    )
-    .staggerFromTo(
-      ".wish-hbd span",
-      0.7,
-      {
-        scale: 1.4,
-        rotationY: 150,
-      },
-      {
-        scale: 1,
-        rotationY: 0,
-        color: "#ff69b4",
-        ease: Expo.easeOut,
-      },
-      0.1,
-      "party"
-    )
-    .from(
-      ".wish h5",
-      0.5,
-      {
-        opacity: 0,
-        y: 10,
-        skewX: "-15deg",
-      },
-      "party"
-    )
-    .staggerTo(
-      ".eight svg",
-      1.5,
-      {
-        visibility: "visible",
-        opacity: 0,
-        scale: 80,
-        repeat: 3,
-        repeatDelay: 1.4,
-      },
-      0.3
-    )
-    .to(".six", 0.5, {
+
+    .from(".wish-hbd span", 0.6, {
       opacity: 0,
-      y: 30,
-      zIndex: "-1",
-    })
-    .staggerFrom(".nine p", 1, ideaTextTrans, 1.2)
-    .to(
-      ".last-smile",
-      0.5,
-      {
-        rotation: 90,
-      },
-      "+=1"
-    );
+      y: -40,
+      rotation: 120,
+      skewX: "25deg",
+      ease: Elastic.easeOut.config(1, 0.5),
+    }, 0.08)
 
-  // Animate the floating button last with a gentle entrance
-  tl.to({}, 0.2, {}) // tiny spacer
-    .from(
-      ".fake-btn",
-      0.6,
-      {
-        opacity: 0,
-        y: 18,
-        scale: 0.98,
-        ease: Power2.easeOut,
-      },
-      "+=0"
-    )
-    .to(
-      ".fake-btn",
-      0.45,
-      {
-        boxShadow: "0 14px 40px rgba(0,0,0,0.28)",
-        ease: Power2.easeOut,
-      },
-      "-=0.2"
-    );
+    .from(".wish h5", 0.5, {
+      opacity: 0,
+      y: 10,
+      skewX: "-15deg",
+    });
 
-  // tl.seek("currentStep");
-  // tl.timeScale(2);
-
-  // Restart Animation on click
-  const replyBtn = document.getElementById("replay");
-  replyBtn.addEventListener("click", () => {
+  document.getElementById("replay").addEventListener("click", () => {
     tl.restart();
   });
 };
 
-// Import the data to customize and insert them into page
-const fetchData = () => {
-  fetch("customize.json")
-    .then((data) => data.json())
-    .then((data) => {
-      Object.keys(data).map((customData) => {
-        if (data[customData] !== "") {
-          if (customData === "imagePath") {
-            document
-              .getElementById(customData)
-              .setAttribute("src", data[customData]);
-          } else {
-            document.getElementById(customData).innerText = data[customData];
-          }
-        }
-      });
-    });
-};
-
-// Run fetch and animation in sequence
-const resolveFetch = () => {
-  return new Promise((resolve, reject) => {
-    fetchData();
-    resolve("Fetch done!");
-  });
-};
-
-resolveFetch().then(animationTimeline());
+// запуск
+fetch("customize.json")
+  .then((data) => data.json())
+  .then(() => animationTimeline());
